@@ -1,4 +1,4 @@
-﻿// This file is part of Aether Radio's SOTA Watch Telegram Bot.
+// This file is part of Aether Radio's SOTA Watch Telegram Bot.
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: 2023 Rui Oliveira <ruimail24@gmail.com>
 
@@ -12,7 +12,7 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        var spots = Client.QuerySpots(10).Result;
+        var spots = Client.QuerySpots(10U).Result;
         if (spots == null)
         {
             Console.WriteLine("No spots found");
