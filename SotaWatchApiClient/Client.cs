@@ -9,7 +9,7 @@ namespace AetherRadio.SotaWatchTelegramBot.SotaWatchApiClient;
 
 public class Client
 {
-    private static readonly HttpClient SotaHttpClient = new()
+    private static readonly HttpClient sotaHttpClient = new()
     {
         BaseAddress = new Uri("https://api2.sota.org.uk/api/")
     };
@@ -30,7 +30,7 @@ public class Client
     {
         Debug.Assert(nSpots <= 200, "nSpots must be <= 200");
 
-        var spots = await SotaHttpClient.GetFromJsonAsync<List<Spot>>($"spots/{nSpots}/?filter=all");
+        var spots = await sotaHttpClient.GetFromJsonAsync<List<Spot>>($"spots/{nSpots}/?filter=all");
 
         return spots;
     }
