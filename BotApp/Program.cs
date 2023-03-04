@@ -1,4 +1,4 @@
-// This file is part of Aether Radio's SOTA Watch Telegram Bot.
+﻿// This file is part of Aether Radio's SOTA Watch Telegram Bot.
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: 2023 Rui Oliveira <ruimail24@gmail.com>
 
@@ -23,6 +23,7 @@ internal class Program
         {
             WriteIndented = true
         };
+
         string spotsJson = JsonSerializer.Serialize(spots, jsonOptions);
 
         Console.WriteLine(spotsJson);
