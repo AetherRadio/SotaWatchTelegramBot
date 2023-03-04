@@ -1,6 +1,6 @@
 # Aether Radio's SOTA Watch Telegram Bot
 
-**This project is currently in _slow_ development.**
+**This project is currently under _slow_ development.**
 
 The goal of this project is to make a Telegram bot that will send out
 notifications when a SOTA summit is activated.
