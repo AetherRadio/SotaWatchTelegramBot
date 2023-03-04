@@ -1,7 +1,8 @@
-﻿// This file is part of Aether Radio's SOTA Watch Telegram Bot.
+// This file is part of Aether Radio's SOTA Watch Telegram Bot.
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: 2023 Rui Oliveira <ruimail24@gmail.com>
 
+using System.Diagnostics;
 using System.Net.Http.Json;
 
 namespace AetherRadio.SotaWatchTelegramBot.SotaWatchApiClient;
@@ -15,6 +16,8 @@ public class Client
 
     public static async Task<List<Spot>?> QuerySpots(int nSpots)
     {
+        Debug.Assert(nSpots <= 200, "nSpots must be <= 200");
+
         var spots = await SotaHttpClient.GetFromJsonAsync<List<Spot>>($"spots/{nSpots}/?filter=all");
 
         return spots;
