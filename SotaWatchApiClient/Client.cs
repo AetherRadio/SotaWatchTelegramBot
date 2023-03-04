@@ -14,7 +14,7 @@ public class Client
         BaseAddress = new Uri("https://api2.sota.org.uk/api/")
     };
 
-    public static async Task<List<Spot>?> QuerySpots(int nSpots)
+    public static async Task<List<Spot>?> QuerySpots(uint nSpots)
     {
         Debug.Assert(nSpots <= 200, "nSpots must be <= 200");
 
