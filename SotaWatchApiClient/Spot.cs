@@ -6,6 +6,12 @@ using System.Text.Json.Serialization;
 
 namespace AetherRadio.SotaWatchTelegramBot.SotaWatchApiClient;
 
+/**
+ * <summary>
+ * Map the JSON objects returned by the SOTA Watch API to C# objects.
+ * Source: https://api2.sota.org.uk/docs/index.html
+ * </summary>
+*/
 public record class Spot
 {
     [JsonPropertyName("id")]
