@@ -26,9 +26,12 @@ internal class Program
         MessageBuilder mBuilder = new(rManager, cInfo);
 
         var poller = new SpotsPoller(TimeSpan.FromSeconds(20));
-        poller.NewSpots += (object? sender, List<Spot> newSpots) =>
+        poller.NewSpots += (object? sender, IEnumerable<Spot> newSpots) =>
         {
-            mBuilder.MakeMessagesFromSpots(newSpots).ForEach(message => Console.WriteLine(message));
+            foreach (string message in mBuilder.MakeMessagesFromSpots(newSpots))
+            {
+                Console.WriteLine(message);
+            };
         };
 
         poller.Start();

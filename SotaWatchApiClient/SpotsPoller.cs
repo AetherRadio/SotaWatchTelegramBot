@@ -6,7 +6,7 @@ namespace AetherRadio.SotaWatchTelegramBot.SotaWatchApiClient;
 
 public class SpotsPoller
 {
-    public event EventHandler<List<Spot>>? NewSpots;
+    public event EventHandler<IEnumerable<Spot>>? NewSpots;
 
     private static readonly object lockObj = new();
 
@@ -22,7 +22,7 @@ public class SpotsPoller
         CallbackTimer = new(SpotsPoolerCallback, null, Timeout.InfiniteTimeSpan, CallbackTimeSpan);
     }
 
-    protected virtual void OnNewSpots(List<Spot> e)
+    protected virtual void OnNewSpots(IEnumerable<Spot> e)
     {
         NewSpots?.Invoke(this, e);
     }
@@ -58,12 +58,12 @@ public class SpotsPoller
         }
     }
 
-    private void CheckForNewSpots(List<Spot> incomingSpots)
+    private void CheckForNewSpots(IEnumerable<Spot> incomingSpots)
     {
         var newSpots = incomingSpots.Where(spot => UlongIsGreaterThan(spot.Id, LastSpotId)).OrderBy(spot => spot.Id);
         if (newSpots.Any())
         {
-            OnNewSpots(newSpots.ToList());
+            OnNewSpots(newSpots);
             LastSpotId = newSpots.Last().Id;
         }
     }

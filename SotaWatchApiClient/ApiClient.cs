@@ -25,11 +25,11 @@ internal static class ApiClient
      * I choose not to implement that here.
      * </param>
      */
-    internal static async Task<List<Spot>?> QuerySpots(uint nSpots)
+    internal static async Task<IEnumerable<Spot>?> QuerySpots(uint nSpots)
     {
         Debug.Assert(nSpots <= 200, "nSpots must be <= 200");
 
-        var spots = await sotaHttpClient.GetFromJsonAsync<List<Spot>>($"spots/{nSpots}/?filter=all");
+        var spots = await sotaHttpClient.GetFromJsonAsync<IEnumerable<Spot>>($"spots/{nSpots}/?filter=all");
 
         return spots;
     }

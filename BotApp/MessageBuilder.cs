@@ -23,9 +23,9 @@ internal class MessageBuilder
         LocaleCultureInfo = localeCultureInfo;
     }
 
-    public List<string> MakeMessagesFromSpots(List<Spot> spots)
+    public IEnumerable<string> MakeMessagesFromSpots(IEnumerable<Spot> spots)
     {
-        return spots.Select(spot => MakeMessageFromSpot(spot)).ToList();
+        return spots.Select(spot => MakeMessageFromSpot(spot));
     }
 
     private string MakeMessageFromSpot(Spot spot)
