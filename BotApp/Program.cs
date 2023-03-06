@@ -19,7 +19,7 @@ internal class Program
         CultureInfo cInfo = new(lang);
 
         // Load the appropriate resource file
-        ResourceManager rManager = new("AetherRadio.SotaWatchTelegramBot.BotApp.Strings", typeof(Program).Assembly);
+        ResourceManager rManager = new($"{typeof(Program).Namespace}.Strings", typeof(Program).Assembly);
 
         // Actual "business logic"
 
