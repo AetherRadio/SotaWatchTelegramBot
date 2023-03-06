@@ -10,7 +10,7 @@ namespace AetherRadio.SotaWatchTelegramBot.BotApp;
 
 internal class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
         JsonSerializerOptions jsonOptions = new()
         {
