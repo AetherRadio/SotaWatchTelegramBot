@@ -4,7 +4,8 @@
 
 using AetherRadio.SotaWatchTelegramBot.SotaWatchApiClient;
 
-using System.Text.Json;
+using System.Globalization;
+using System.Resources;
 
 namespace AetherRadio.SotaWatchTelegramBot.BotApp;
 
@@ -12,15 +13,22 @@ internal class Program
 {
     static void Main()
     {
-        JsonSerializerOptions jsonOptions = new()
-        {
-            WriteIndented = true
-        };
+        // Get the user's preferred language and make a CultureInfo
+        // TODO: allow this to be configurable
+        string lang = CultureInfo.CurrentCulture.Name;
+        CultureInfo cInfo = new(lang);
+
+        // Load the appropriate resource file
+        ResourceManager rManager = new("AetherRadio.SotaWatchTelegramBot.BotApp.Strings", typeof(Program).Assembly);
+
+        // Actual "business logic"
+
+        MessageBuilder mBuilder = new(rManager, cInfo);
 
         var poller = new SpotsPoller(TimeSpan.FromSeconds(20));
         poller.NewSpots += (object? sender, List<Spot> newSpots) =>
         {
-            Console.WriteLine(JsonSerializer.Serialize(newSpots, jsonOptions));
+            mBuilder.MakeMessagesFromSpots(newSpots).ForEach(message => Console.WriteLine(message));
         };
 
         poller.Start();
