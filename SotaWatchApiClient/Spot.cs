@@ -15,10 +15,10 @@ namespace AetherRadio.SotaWatchTelegramBot.SotaWatchApiClient;
 public record class Spot
 {
     [JsonPropertyName("id")]
-    public required int Id { get; init; }
+    public required ulong Id { get; init; }
 
     [JsonPropertyName("userID")]
-    public required int UserId { get; init; }
+    public required ulong UserId { get; init; }
 
     [JsonPropertyName("timeStamp")]
     public required DateTimeOffset TimeStamp { get; init; }

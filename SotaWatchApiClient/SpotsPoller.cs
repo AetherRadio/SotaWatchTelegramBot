@@ -13,7 +13,7 @@ public class SpotsPoller
     private Timer CallbackTimer { get; init; }
     private TimeSpan CallbackTimeSpan { get; init; }
     private uint NSpots { get; init; }
-    private int LastSpotId { get; set; } = 0;
+    private ulong LastSpotId { get; set; } = 0;
 
     public SpotsPoller(TimeSpan timeSpan, uint nSpots = 20)
     {
@@ -67,11 +67,24 @@ public class SpotsPoller
 
     private void CheckForNewSpots(List<Spot> incomingSpots)
     {
-        var newSpots = incomingSpots.Where(spot => spot.Id > LastSpotId).OrderBy(spot => spot.Id);
+        var newSpots = incomingSpots.Where(spot => UlongIsGreaterThan(spot.Id, LastSpotId)).OrderBy(spot => spot.Id);
         if (newSpots.Any())
         {
             OnNewSpots(newSpots.ToList());
             LastSpotId = newSpots.Last().Id;
+        }
+    }
+
+    private static bool UlongIsGreaterThan(ulong newValue, ulong oldValue)
+    {
+        // Check if newValue is greater than oldValue, accounting for ulong wrap around.
+        if (newValue > oldValue)
+        {
+            return (newValue - oldValue) < (ulong.MaxValue / 2);
+        }
+        else
+        {
+            return (oldValue - newValue) > (ulong.MaxValue / 2);
         }
     }
 }
