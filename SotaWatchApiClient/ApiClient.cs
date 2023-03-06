@@ -7,7 +7,7 @@ using System.Net.Http.Json;
 
 namespace AetherRadio.SotaWatchTelegramBot.SotaWatchApiClient;
 
-internal class Client
+internal class ApiClient
 {
     private static readonly HttpClient sotaHttpClient = new()
     {
