@@ -19,7 +19,7 @@ public class SpotsPoller
     {
         NSpots = nSpots;
         CallbackTimeSpan = timeSpan;
-        CallbackTimer = new(SpotsPoolerCallback, this, Timeout.InfiniteTimeSpan, CallbackTimeSpan);
+        CallbackTimer = new(SpotsPoolerCallback, null, Timeout.InfiniteTimeSpan, CallbackTimeSpan);
     }
 
     protected virtual void OnNewSpots(List<Spot> e)
@@ -38,24 +38,17 @@ public class SpotsPoller
         // TODO: What do I need to do to ensure gracefully stopping?
     }
 
-    private static void SpotsPoolerCallback(object? state)
+    private void SpotsPoolerCallback(object? state)
     {
-        if (state == null)
-        {
-            throw new ArgumentNullException(nameof(state));
-        }
-
         // Prevent overlapping execution by checking if the method is already running
         if (Monitor.TryEnter(lockObj))
         {
             try
             {
-                var self = (SpotsPoller)state;
-
-                var incomingSpots = ApiClient.QuerySpots(self.NSpots).Result;
+                var incomingSpots = ApiClient.QuerySpots(NSpots).Result;
                 if (incomingSpots != null)
                 {
-                    self.CheckForNewSpots(incomingSpots);
+                    CheckForNewSpots(incomingSpots);
                 }
             }
             finally
