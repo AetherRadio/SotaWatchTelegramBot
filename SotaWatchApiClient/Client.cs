@@ -7,7 +7,7 @@ using System.Net.Http.Json;
 
 namespace AetherRadio.SotaWatchTelegramBot.SotaWatchApiClient;
 
-public class Client
+internal class Client
 {
     private static readonly HttpClient sotaHttpClient = new()
     {
@@ -24,9 +24,8 @@ public class Client
      * While the SOTA Watch API has the option to use negative values corresponding to "hours before",
      * I choose not to implement that here.
      * </param>
-     * 
-    */
-    public static async Task<List<Spot>?> QuerySpots(uint nSpots)
+     */
+    internal static async Task<List<Spot>?> QuerySpots(uint nSpots)
     {
         Debug.Assert(nSpots <= 200, "nSpots must be <= 200");
 
