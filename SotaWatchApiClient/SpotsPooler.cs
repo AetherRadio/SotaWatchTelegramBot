@@ -6,21 +6,25 @@ namespace AetherRadio.SotaWatchTelegramBot.SotaWatchApiClient;
 
 public class SpotsPooler
 {
-    private static readonly object lockObj = new();
-    private static readonly Client client = new();
+    public event EventHandler<List<Spot>>? NewSpots;
 
+    private static readonly object lockObj = new();
 
     private Timer CallbackTimer { get; init; }
     private TimeSpan CallbackTimeSpan { get; init; }
     private uint NSpots { get; init; }
-
-
+    private int LastSpotId { get; set; } = 0;
 
     public SpotsPooler(TimeSpan timeSpan, uint nSpots = 20)
     {
         NSpots = nSpots;
         CallbackTimeSpan = timeSpan;
         CallbackTimer = new(SpotsPoolerCallback, this, Timeout.InfiniteTimeSpan, CallbackTimeSpan);
+    }
+
+    protected virtual void OnNewSpots(List<Spot> e)
+    {
+        NewSpots?.Invoke(this, e);
     }
 
     public void Start()
@@ -37,24 +41,36 @@ public class SpotsPooler
     {
         if (state == null)
         {
-            throw new ArgumentNullException($"{nameof(state)} cannot be null here.");
+            throw new ArgumentNullException(nameof(state));
         }
-
-        var Self = (SpotsPooler)state;
 
         // Prevent overlapping execution by checking if the method is already running
         if (Monitor.TryEnter(lockObj))
         {
             try
             {
-                // TODO: logic
-                // Will require the `state` object to pass `this`.
+                var self = (SpotsPooler)state;
+
+                var incomingSpots = ApiClient.QuerySpots(self.NSpots).Result;
+                if (incomingSpots != null)
+                {
+                    self.CheckForNewSpots(incomingSpots);
+                }
             }
             finally
             {
                 Monitor.Exit(lockObj);
             }
         }
+    }
 
+    private void CheckForNewSpots(List<Spot> incomingSpots)
+    {
+        var newSpots = incomingSpots.Where(spot => spot.Id > LastSpotId).OrderBy(spot => spot.Id);
+        if (newSpots.Any())
+        {
+            OnNewSpots(newSpots.ToList());
+            LastSpotId = newSpots.Last().Id;
+        }
     }
 }
