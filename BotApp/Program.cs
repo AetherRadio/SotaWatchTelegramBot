@@ -17,7 +17,7 @@ internal class Program
             WriteIndented = true
         };
 
-        var pooler = new SpotsPoller(TimeSpan.FromSeconds(10));
+        var pooler = new SpotsPoller(TimeSpan.FromSeconds(20));
         pooler.NewSpots += (object? sender, List<Spot> newSpots) =>
         {
             Console.WriteLine(JsonSerializer.Serialize(newSpots, jsonOptions));
