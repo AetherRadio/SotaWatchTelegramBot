@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: 2023 Rui Oliveira <ruimail24@gmail.com>
 
+using AetherRadio.SotaWatchTelegramBot.SotaWatchApiClient;
+
 using System.Text.Json;
 
 namespace AetherRadio.SotaWatchTelegramBot.BotApp;
@@ -10,20 +12,21 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        var spots = ApiClient.QuerySpots(10U).Result;
-        if (spots == null)
-        {
-            Console.WriteLine("No spots found");
-            return;
-        }
-
         JsonSerializerOptions jsonOptions = new()
         {
             WriteIndented = true
         };
 
-        string spotsJson = JsonSerializer.Serialize(spots, jsonOptions);
+        var pooler = new SpotsPoller(TimeSpan.FromSeconds(10));
+        pooler.NewSpots += (object? sender, List<Spot> newSpots) =>
+        {
+            Console.WriteLine(JsonSerializer.Serialize(newSpots, jsonOptions));
+        };
 
-        Console.WriteLine(spotsJson);
+        pooler.Start();
+
+        Console.Read(); // Keep alive
+
+        pooler.Stop();
     }
 }

@@ -4,7 +4,7 @@
 
 namespace AetherRadio.SotaWatchTelegramBot.SotaWatchApiClient;
 
-public class SpotsPooler
+public class SpotsPoller
 {
     public event EventHandler<List<Spot>>? NewSpots;
 
@@ -15,7 +15,7 @@ public class SpotsPooler
     private uint NSpots { get; init; }
     private int LastSpotId { get; set; } = 0;
 
-    public SpotsPooler(TimeSpan timeSpan, uint nSpots = 20)
+    public SpotsPoller(TimeSpan timeSpan, uint nSpots = 20)
     {
         NSpots = nSpots;
         CallbackTimeSpan = timeSpan;
@@ -35,6 +35,7 @@ public class SpotsPooler
     public void Stop()
     {
         CallbackTimer.Change(Timeout.InfiniteTimeSpan, CallbackTimeSpan);
+        // TODO: What do I need to do to ensure gracefully stopping?
     }
 
     private static void SpotsPoolerCallback(object? state)
@@ -49,7 +50,7 @@ public class SpotsPooler
         {
             try
             {
-                var self = (SpotsPooler)state;
+                var self = (SpotsPoller)state;
 
                 var incomingSpots = ApiClient.QuerySpots(self.NSpots).Result;
                 if (incomingSpots != null)
