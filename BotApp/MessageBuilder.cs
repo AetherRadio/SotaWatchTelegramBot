@@ -15,8 +15,6 @@ internal class MessageBuilder
     private ResourceManager StringsResourceManager { get; init; }
     private CultureInfo LocaleCultureInfo { get; init; }
 
-    private static readonly string defaultSpotMessage = "[DEFAULT] {0} is activating in {1}/{2}, on frequency {3} MHz, mode {4}.";
-
     public MessageBuilder(ResourceManager stringsResourceManager, CultureInfo localeCultureInfo)
     {
         StringsResourceManager = stringsResourceManager;
@@ -31,7 +29,8 @@ internal class MessageBuilder
     private string MakeMessageFromSpot(Spot spot)
     {
         string resourceString = StringsResourceManager.GetString("SpotMessage", LocaleCultureInfo)
-                                ?? defaultSpotMessage;
+                                ?? throw new InvalidOperationException("String not found in resources.");
+
         return string.Format(resourceString,
                              spot.ActivatorCallsign,
                              spot.AssociationCode,
