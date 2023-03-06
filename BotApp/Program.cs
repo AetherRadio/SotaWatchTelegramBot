@@ -17,16 +17,16 @@ internal class Program
             WriteIndented = true
         };
 
-        var pooler = new SpotsPoller(TimeSpan.FromSeconds(20));
-        pooler.NewSpots += (object? sender, List<Spot> newSpots) =>
+        var poller = new SpotsPoller(TimeSpan.FromSeconds(20));
+        poller.NewSpots += (object? sender, List<Spot> newSpots) =>
         {
             Console.WriteLine(JsonSerializer.Serialize(newSpots, jsonOptions));
         };
 
-        pooler.Start();
+        poller.Start();
 
         Console.Read(); // Keep alive
 
-        pooler.Stop();
+        poller.Stop();
     }
 }
