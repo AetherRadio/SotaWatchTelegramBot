@@ -13,5 +13,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\SotaWatchApiClient\SotaWatchApiClient.csproj" />
+    <ProjectReference Include="..\TelegramApiClient\TelegramApiClient.csproj" />
   </ItemGroup>
 </Project>
