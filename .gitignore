@@ -842,3 +842,6 @@ fabric.properties
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/dotnetcore,csharp,visualstudio,visualstudiocode,c++,aspnetcore,rider
+
+# Local configuration file
+BotApp.dll.config
