@@ -8,6 +8,14 @@ notifications when a SOTA summit is activated.
 The goal is for the bot to be able be in SOTA-related channels and message
 summit spots and alerts according to defined filters.
 
+## Create container (WIP)
+
+In the `BotApp` directory, run:
+
+```bash
+dotnet publish --os linux --arch x64 /t:PublishContainer -c Release
+```
+
 ## Licensing information
 
 The project is licensed under the Apache License, Version 2.0. See the
