@@ -14,16 +14,19 @@ internal class MessageBuilder
 
     private ResourceManager StringsResourceManager { get; init; }
     private CultureInfo LocaleCultureInfo { get; init; }
+    private IEnumerable<string> AssociationWhitelist { get; init; }
 
-    public MessageBuilder(ResourceManager stringsResourceManager, CultureInfo localeCultureInfo)
+    public MessageBuilder(ResourceManager stringsResourceManager, CultureInfo localeCultureInfo, IEnumerable<string> associationWhileList)
     {
         StringsResourceManager = stringsResourceManager;
         LocaleCultureInfo = localeCultureInfo;
+        AssociationWhitelist = associationWhileList;
     }
 
     public IEnumerable<string> MakeMessagesFromSpots(IEnumerable<Spot> spots)
     {
-        return spots.Select(spot => MakeMessageFromSpot(spot));
+        return spots.Where(spot => AssociationWhitelist.Contains(spot.AssociationCode))
+                     .Select(spot => MakeMessageFromSpot(spot));
     }
 
     private string MakeMessageFromSpot(Spot spot)

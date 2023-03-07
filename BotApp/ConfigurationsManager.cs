@@ -9,8 +9,8 @@ namespace AetherRadio.SotaWatchTelegramBot.BotApp;
 internal class ConfigurationsManager
 {
     public string TelegramToken { get; init; }
-    public string[] TelegramChats { get; init; }
-    public string[] AssociationWhitelist { get; init; }
+    public IEnumerable<string> TelegramChats { get; init; }
+    public IEnumerable<string> AssociationWhitelist { get; init; }
     public string Locale { get; init; }
 
     public ConfigurationsManager()

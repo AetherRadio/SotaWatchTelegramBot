@@ -25,7 +25,7 @@ internal class Program
 
         CultureInfo cInfo = new(confManager.Locale);
 
-        MessageBuilder mBuilder = new(rManager, cInfo);
+        MessageBuilder mBuilder = new(rManager, cInfo, confManager.AssociationWhitelist);
 
         MessageSender mSender = new(confManager.TelegramToken, confManager.TelegramChats);
 
