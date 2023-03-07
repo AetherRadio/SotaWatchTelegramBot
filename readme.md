@@ -38,7 +38,9 @@ cp BotApp.dll.config.sample BotApp.dll.config
 ```
 
 Then, open the file `BotApp.dll.config` and fill in the values. Put the token
-for your bot in `TelegramToken`. `TelegramChats` is for a semicolon-separated
+for your bot in `TelegramToken`.
+
+`TelegramChats` is for a semicolon-separated
 list of chat IDs that the bot will send messages to. I couldn't find a good way
 to get the chat ID, but I noticed that when visiting the `/getUpdates` API
 endpoint of the bot (e.g. `https://api.telegram.org/bot<token>/getUpdates`),
@@ -55,6 +57,21 @@ I could see the chat ID in the JSON response. Example:
 
 Where `id` is the number you need to put in `TelegramChats`, minus sign
 included.
+
+`AssociationWhitelist` is a semicolon-separated list of SOTA associations that
+you want to get notifications for. I did not implement a way to get _all_
+spots, because that's not something we wanted. An an example, our server uses
+the following setting:
+
+```xml
+<add key="AssociationWhitelist" value="CT;CT3;CU" />
+```
+
+so we get notifications for all the Portuguese SOTA associations.
+
+Finally, the `Locale` setting determines the language of the messages sent by
+the bot. Currently, only `en-US` and `pt-PT` are supported. If you want to add a
+new language, feel free to open a pull request.
 
 Once you have the configuration file ready, you can run the bot by running:
 
