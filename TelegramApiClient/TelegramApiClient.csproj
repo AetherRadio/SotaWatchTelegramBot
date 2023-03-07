@@ -1,3 +1,8 @@
+<!--
+  This file is part of Aether Radio's SOTA Watch Telegram Bot.
+  SPDX-License-Identifier: SPDX-License-Identifier: Apache-2.0
+  SPDX-FileCopyrightText: 2023 Rui Oliveira <ruimail24@gmail.com>
+-->
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
@@ -6,5 +11,4 @@
     <Nullable>enable</Nullable>
     <RootNamespace>AetherRadio.SotaWatchTelegramBot.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
-
 </Project>

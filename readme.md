@@ -1,3 +1,8 @@
+<!--
+  This file is part of Aether Radio's SOTA Watch Telegram Bot.
+  SPDX-License-Identifier: CC0-1.0
+  SPDX-FileCopyrightText: 2023 Rui Oliveira <ruimail24@gmail.com>
+-->
 # Aether Radio's SOTA Watch Telegram Bot
 
 **This project is currently under _slow_ development.**
