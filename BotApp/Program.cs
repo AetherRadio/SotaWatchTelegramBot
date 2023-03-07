@@ -39,9 +39,23 @@ internal class Program
             };
         };
 
+        // Keep alive system
+        Console.WriteLine("Press Ctrl-C to exit.");
+        ManualResetEvent waitHandle = new(false);
+
+        // Set up signal handlers
+        Console.CancelKeyPress += (sender, eventArgs) =>
+        {
+            Console.WriteLine("Exiting...");
+            waitHandle.Set();
+            // Prevent the main thread from terminating the process
+            eventArgs.Cancel = true;
+        };
+
         poller.Start();
 
-        Console.Read(); // Keep alive
+        // Block the main thread until a signal is received
+        waitHandle.WaitOne();
 
         poller.Stop();
     }
