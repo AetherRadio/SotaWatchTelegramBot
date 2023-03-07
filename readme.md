@@ -8,6 +8,26 @@ notifications when a SOTA summit is activated.
 The goal is for the bot to be able be in SOTA-related channels and message
 summit spots and alerts according to defined filters.
 
+## Running
+
+The easiest way to run the bot is to use a session manager, like `tmux` or
+`screen`. This is because the application keeps alive by listening to the
+terminal.
+
+You can start the application by running:
+
+```bash
+tmux new-session -s sota-bot-session
+```
+
+And inside the session, run:
+
+```bash
+./BotApp
+```
+
+And then exit the session by pressing `Ctrl + B` and then `D`.
+
 ## Create container (WIP)
 
 In the `BotApp` directory, run:
