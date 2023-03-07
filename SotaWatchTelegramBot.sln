@@ -9,12 +9,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SotaWatchApiClient", "SotaW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramApiClient", "TelegramApiClient\TelegramApiClient.csproj", "{7F50A981-5AF6-475D-9B12-58AF233E580D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NukeBuild", "NukeBuild\NukeBuild.csproj", "{9502EB62-94F0-4A79-9408-EC5FEDAC8E94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9502EB62-94F0-4A79-9408-EC5FEDAC8E94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9502EB62-94F0-4A79-9408-EC5FEDAC8E94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C8BC76A-8496-46AD-8CE7-B947176123D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2C8BC76A-8496-46AD-8CE7-B947176123D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C8BC76A-8496-46AD-8CE7-B947176123D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
