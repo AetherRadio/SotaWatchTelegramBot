@@ -12,6 +12,9 @@
     <RootNamespace>AetherRadio.SotaWatchTelegramBot.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\SotaWatchApiClient\SotaWatchApiClient.csproj" />
     <ProjectReference Include="..\TelegramApiClient\TelegramApiClient.csproj" />
   </ItemGroup>

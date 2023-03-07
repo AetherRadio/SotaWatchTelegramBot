@@ -14,21 +14,20 @@ internal class Program
 {
     static void Main()
     {
-        // Get the user's preferred language and make a CultureInfo
-        // TODO: allow this to be configurable
-        string lang = CultureInfo.CurrentCulture.Name;
-        CultureInfo cInfo = new(lang);
+        // Load the configuration
+        ConfigurationsManager confManager = new();
+
 
         // Load the appropriate resource file
         ResourceManager rManager = new($"{typeof(Program).Namespace}.Strings", typeof(Program).Assembly);
 
         // Actual "business logic"
 
+        CultureInfo cInfo = new(confManager.Locale);
+
         MessageBuilder mBuilder = new(rManager, cInfo);
 
-        // TODO: load these things from a configuration file
-        MessageSender mSender = new("API_KEY_HERE",
-                                    new string[] { "CT", "CT3", "CU" });
+        MessageSender mSender = new(confManager.TelegramToken, confManager.TelegramChats);
 
         var poller = new SpotsPoller(TimeSpan.FromSeconds(20));
         poller.NewSpots += (object? _, IEnumerable<Spot> newSpots) =>
