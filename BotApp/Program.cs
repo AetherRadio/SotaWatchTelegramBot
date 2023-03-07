@@ -29,7 +29,7 @@ internal class Program
 
         MessageSender mSender = new(confManager.TelegramToken, confManager.TelegramChats);
 
-        var poller = new SpotsPoller(TimeSpan.FromSeconds(20));
+        var poller = new SpotsPoller(TimeSpan.FromSeconds(30));
         poller.NewSpots += (object? _, IEnumerable<Spot> newSpots) =>
         {
             foreach (string message in mBuilder.MakeMessagesFromSpots(newSpots))

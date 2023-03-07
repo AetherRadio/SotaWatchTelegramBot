@@ -15,7 +15,7 @@ public class SpotsPoller
     private uint NSpots { get; init; }
     private ulong LastSpotId { get; set; } = 0;
 
-    public SpotsPoller(TimeSpan timeSpan, uint nSpots = 20)
+    public SpotsPoller(TimeSpan timeSpan, uint nSpots = 10)
     {
         NSpots = nSpots;
         CallbackTimeSpan = timeSpan;
