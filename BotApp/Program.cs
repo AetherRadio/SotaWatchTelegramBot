@@ -3,6 +3,7 @@
 // SPDX-FileCopyrightText: 2023 Rui Oliveira <ruimail24@gmail.com>
 
 using AetherRadio.SotaWatchTelegramBot.SotaWatchApiClient;
+using AetherRadio.SotaWatchTelegramBot.TelegramApiClient;
 
 using System.Globalization;
 using System.Resources;
@@ -25,12 +26,17 @@ internal class Program
 
         MessageBuilder mBuilder = new(rManager, cInfo);
 
+        // TODO: load these things from a configuration file
+        MessageSender mSender = new("API_KEY_HERE",
+                                    new string[] { "CT", "CT3", "CU" });
+
         var poller = new SpotsPoller(TimeSpan.FromSeconds(20));
         poller.NewSpots += (object? _, IEnumerable<Spot> newSpots) =>
         {
             foreach (string message in mBuilder.MakeMessagesFromSpots(newSpots))
             {
                 Console.WriteLine(message);
+                mSender.Send(message);
             };
         };
 
