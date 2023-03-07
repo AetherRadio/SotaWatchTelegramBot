@@ -1,0 +1,17 @@
+# This file is part of Aether Radio's SOTA Watch Telegram Bot.
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: 2023 Rui Oliveira <ruimail24@gmail.com>
+
+version: "3.4"
+
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"

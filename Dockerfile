@@ -20,5 +20,6 @@ FROM mcr.microsoft.com/dotnet/runtime:7.0 AS runtime
 WORKDIR /app
 
 COPY --from=build /app/BotApp/bin/Release/net7.0/publish ./
+COPY BotApp.dll.config ./
 
 ENTRYPOINT ["dotnet", "BotApp.dll"]

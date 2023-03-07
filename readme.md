@@ -15,31 +15,55 @@ summit spots and alerts according to defined filters.
 
 ## Running
 
-The easiest way to run the bot is to use a session manager, like `tmux` or
-`screen`. This is because the application keeps alive by listening to the
-terminal.
+The easiest way to run the bot is to use `docker compose`.
+If you're knowledgeable with `dotnet`, feel free to build and run the
+application in a standalone way.
 
-You can start the application by running:
+### How to run with `docker compose`
 
-```bash
-tmux new-session -s sota-bot-session
-```
+First, you need to create your own bot by talking to the `@BotFather` bot on
+Telegram. See [this link](https://sendpulse.com/knowledge-base/chatbot/telegram/create-telegram-chatbot)
+for more information.
 
-And inside the session, run:
+Don't forget to add the bot to the channels you want it to be in.
 
-```bash
-./BotApp
-```
+Once you have your bot, `git clone` or download and extract this repository on
+your machine.
 
-And then exit the session by pressing `Ctrl + B` and then `D`.
-
-## Create container (WIP)
-
-In the `BotApp` directory, run:
+Then, copy the file `BotApp.dll.config.sample`, renaming it to
+`BotApp.dll.config`. In Linux you can do this by running:
 
 ```bash
-dotnet publish --os linux --arch x64 /t:PublishContainer -c Release
+cp BotApp.dll.config.sample BotApp.dll.config
 ```
+
+Then, open the file `BotApp.dll.config` and fill in the values. Put the token
+for your bot in `TelegramToken`. `TelegramChats` is for a semicolon-separated
+list of chat IDs that the bot will send messages to. I couldn't find a good way
+to get the chat ID, but I noticed that when visiting the `/getUpdates` API
+endpoint of the bot (e.g. `https://api.telegram.org/bot<token>/getUpdates`),
+I could see the chat ID in the JSON response. Example:
+
+```json
+      "my_chat_member": {
+        "chat": {
+          "id": -1000012345678,
+          "title": "Some channel name",
+          "type": "supergroup"
+        },
+```
+
+Where `id` is the number you need to put in `TelegramChats`, minus sign
+included.
+
+Once you have the configuration file ready, you can run the bot by running:
+
+```bash
+docker compose up -d --build
+```
+
+Older versions of `docker` might not have the `compose` subcommand.
+Replace `docker compose` with `docker-compose` in that case.
 
 ## Licensing information
 
