@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+        <appSettings>
+                <add key="TelegramToken" value="YOUR_API_TOKEN_HERE" />
+                <add key="TelegramChats" value="SEMICOLON_SEPARED_LIST_OF_CHAT_IDS" />
+                <add key="AssociationWhitelist" value="SEMICOLON_SEPARED_LIST_OF_ASSOCIATIONS" />
+                <add key="Locale" value="en-US" />
+        </appSettings>
+</configuration>
