@@ -36,10 +36,13 @@ internal class MessageBuilder
 
         return string.Format(resourceString,
                              spot.ActivatorCallsign,
+                             spot.ActivatorName,
                              spot.AssociationCode,
                              spot.SummitCode,
                              spot.Frequency,
-                             spot.Mode);
+                             spot.Mode,
+                             spot.Callsign,
+                             spot.Comments);
 
     }
 }
